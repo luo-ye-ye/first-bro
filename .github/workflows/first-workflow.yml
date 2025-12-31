@@ -28,12 +28,11 @@ jobs:
           echo "which simulates a test that runs 20 seconds longer than test-job1"
           sleep 20
 
- deploy-prod:
- needs: [test-job1, test-job2] # 只有当两个测试作业都成功后才运⾏ 
- runs-on: ubuntu-latest
- environment: production # GitHub 的环境部署功能 
- steps:
- - name: Deploy script
- # ${{ github.ref_name }} 对应 $CI_COMMIT_BRANCH 
- run: echo "This job deploys something from the ${{ github.ref_name }} 
-branch."
+deploy-prod:
+    needs: [test-job1, test-job2] # 只有当两个测试作业都成功后才运行
+    runs-on: ubuntu-latest
+    environment: production # GitHub 的环境部署功能
+    steps:
+      - name: Deploy script
+        # ${{ github.ref_name }} 对应 $CI_COMMIT_BRANCH
+        run: echo "This job deploys something from the ${{ github.ref_name }} branch."
